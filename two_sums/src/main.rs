@@ -1,19 +1,19 @@
+use std::collections::HashMap;
+
 struct  Solution;
 
 impl Solution {
     pub fn two_sum(nums: Vec<i32>, target: i32) -> Vec<i32> {
-        if nums.len() == 2 {
-            return vec![0, 1];
-        }
+        let mut num_memorized: HashMap<i32, i32> = HashMap::new();
 
         for i in 0..nums.len() {
-            for j in (i + 1)..nums.len() {
-                if nums[i] + nums[j] == target {
-                    return vec![i as i32, j as i32];
-                }
+            let complement = target - nums[i];
+            if let Some(&j) = num_memorized.get(&complement) {
+                return  vec![i as i32, j as i32];
             }
-        }
 
+            num_memorized.insert(nums[i], i as i32);   
+        }
         
         vec![]
     }
